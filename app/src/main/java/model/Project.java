@@ -4,7 +4,7 @@ import java.util.Date;
 
 /**
  * 
- * @author dev-pedro
+ * @author dev-pedro <dev.pedro.rjas@gmail.com>
  */
 public class Project {
     
