@@ -15,8 +15,8 @@ public class Task {
     private Boolean completed;
     private String notes;
     private Date deadline;
-    private Date createAt;
-    private Date updateAt;
+    private Date createdAt;
+    private Date updatedAt;
 
     public Task(int id, int idProject, String name, String description, Boolean completed, String notes, Date deadline, Date createAt, Date updateAt) {
         this.id = id;
@@ -26,12 +26,12 @@ public class Task {
         this.completed = completed;
         this.notes = notes;
         this.deadline = deadline;
-        this.createAt = createAt;
-        this.updateAt = updateAt;
+        this.createdAt = createAt;
+        this.updatedAt = updateAt;
     }
 
     public Task() {
-        this.createAt = new Date();
+        this.createdAt = new Date();
     }
     
     public int getId() {
@@ -90,25 +90,25 @@ public class Task {
         this.deadline = deadline;
     }
 
-    public Date getCreateAt() {
-        return createAt;
+    public Date getCreatedAt() {
+        return createdAt;
     }
 
     public void setCreateAt(Date createAt) {
-        this.createAt = createAt;
+        this.createdAt = createAt;
     }
 
-    public Date getUpdateAt() {
-        return updateAt;
+    public Date getUpdatedAt() {
+        return updatedAt;
     }
 
     public void setUpdateAt(Date updateAt) {
-        this.updateAt = updateAt;
+        this.updatedAt = updateAt;
     }
 
     @Override
     public String toString() {
-        return "Task{" + "id=" + id + ", idProject=" + idProject + ", name=" + name + ", description=" + description + ", completed=" + completed + ", notes=" + notes + ", deadline=" + deadline + ", createAt=" + createAt + ", updateAt=" + updateAt + '}';
+        return "Task{" + "id=" + id + ", idProject=" + idProject + ", name=" + name + ", description=" + description + ", completed=" + completed + ", notes=" + notes + ", deadline=" + deadline + ", createAt=" + createdAt + ", updateAt=" + updatedAt + '}';
     }
     
 }

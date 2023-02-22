@@ -1,5 +1,4 @@
 package controller;
-
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -18,7 +17,7 @@ import util.ConnectionFactory;
 public class TaskController {
     
     public void save(Task task){
-        String sql = "INSERT INTO task (idProject,"
+        String sql = "INSERT INTO tasks (idProject,"
                 + "name, "
                 + "description, "
                 + "completed, "
@@ -39,12 +38,12 @@ public class TaskController {
             statement.setBoolean(4, task.getCompleted());
             statement.setString(5, task.getNotes());
             statement.setDate(6, new Date(task.getDeadline().getTime()));
-            statement.setDate(7, new Date(task.getCreateAt().getTime()));
-            statement.setDate(8, new Date(task.getUpdateAt().getTime()));
+            statement.setDate(7, new Date(task.getCreatedAt().getTime()));
+            statement.setDate(8, new Date(task.getUpdatedAt().getTime()));
             statement.execute();
             
         } catch (SQLException error) {
-            throw new RuntimeException("Erro ao salvar no banco de dados ", error);
+            throw new RuntimeException("Erro ao salvar a tarefa no banco de dados ", error);
         }finally{
             ConnectionFactory.closeConnection(connection, statement);
         }
@@ -75,8 +74,8 @@ public class TaskController {
             statement.setString(4, task.getNotes());
             statement.setBoolean(5, task.getCompleted());
             statement.setDate(6, new Date(task.getDeadline().getTime()));
-            statement.setDate(7, new Date(task.getCreateAt().getTime()));
-            statement.setDate(8, new Date(task.getUpdateAt().getTime()));
+            statement.setDate(7, new Date(task.getCreatedAt().getTime()));
+            statement.setDate(8, new Date(task.getUpdatedAt().getTime()));
             statement.setInt(9, task.getId());
             
             //Executando a query
