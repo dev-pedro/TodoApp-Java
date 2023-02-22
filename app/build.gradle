@@ -23,14 +23,15 @@ dependencies {
     // This dependency is used by the application.
     implementation 'com.google.guava:guava:31.0.1-jre'
 
-    // https://mvnrepository.com/artifact/mysql/mysql-connector-java
-    implementation group: 'mysql', name: 'mysql-connector-java', version: '8.0.32'
+    // https://mvnrepository.com/artifact/com.mysql/mysql-connector-j
+    implementation group: 'com.mysql', name: 'mysql-connector-j', version: '8.0.32'
+
 
 }
 
 application {
     // Define the main class for the application.
-    mainClass = 'TodoApp.Java.App'
+    mainClass = 'TodoApp.Java.Main'
 }
 
 tasks.named('test') {

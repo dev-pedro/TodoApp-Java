@@ -1,5 +1,4 @@
 package model;
-
 import java.util.Date;
 
 /**
@@ -12,14 +11,19 @@ public class Project {
     private String name;
     private String description;
     private Date createdAt;
-    private Date updateAt;
+    private Date updatedAt;
 
     public Project(int id, String name, String description, Date createdAt, Date updateAt) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.createdAt = createdAt;
-        this.updateAt = updateAt;
+        this.updatedAt = updateAt;
+    }
+    
+    public Project() {
+        this.createdAt = new Date();
+        this.updatedAt = new Date();
     }
 
     public int getId() {
@@ -54,17 +58,17 @@ public class Project {
         this.createdAt = createdAt;
     }
 
-    public Date getUpdateAt() {
-        return updateAt;
+    public Date getUpdatedAt() {
+        return updatedAt;
     }
 
     public void setUpdateAt(Date updateAt) {
-        this.updateAt = updateAt;
+        this.updatedAt = updateAt;
     }
 
     @Override
     public String toString() {
-        return "Project{" + "id=" + id + ", name=" + name + ", description=" + description + ", createdAt=" + createdAt + ", updateAt=" + updateAt + '}';
+        return "Project{" + "id=" + id + ", name=" + name + ", description=" + description + ", createdAt=" + createdAt + ", updateAt=" + updatedAt + '}';
     }
     
 }

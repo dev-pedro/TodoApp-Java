@@ -17,14 +17,14 @@ import util.ConnectionFactory;
 public class TaskController {
     
     public void save(Task task){
-        String sql = "INSERT INTO tasks (idProject,"
+        String sql = "INSERT INTO tasks (idProject, "
                 + "name, "
                 + "description, "
                 + "completed, "
                 + "notes, "
                 + "deadline, "
                 + "createdAt, "
-                + "updatedAt) VALUE (?, ?, ?, ?, ?, ?, ?, ?)";
+                + "updatedAt) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         
         Connection connection = null;
         PreparedStatement statement = null;
@@ -32,10 +32,11 @@ public class TaskController {
         try {
             connection = ConnectionFactory.getConnection();
             statement = connection.prepareStatement(sql);
-            statement.setInt(1, task.getId());
+            
+            statement.setInt(1, task.getIdProject());
             statement.setString(2, task.getName());
             statement.setString(3, task.getDescription());
-            statement.setBoolean(4, task.getCompleted());
+            statement.setBoolean(4, task.getIsCompleted());
             statement.setString(5, task.getNotes());
             statement.setDate(6, new Date(task.getDeadline().getTime()));
             statement.setDate(7, new Date(task.getCreatedAt().getTime()));
@@ -53,11 +54,12 @@ public class TaskController {
         String sql = "UPDATE tasks SET "
                 + "idProject = ?, "
                 + "name = ?, "
-                + "decription = ?, "
+                + "description = ?, "
                 + "notes = ?, "
+                + "completed = ?, "
                 + "deadline = ?, "
                 + "createdAt = ?, "
-                + "updatedAt = ?, "
+                + "updatedAt = ? "
                 + "WHERE id = ?";
         Connection connection = null;
         PreparedStatement statement = null;
@@ -72,7 +74,7 @@ public class TaskController {
             statement.setString(2, task.getName());
             statement.setString(3, task.getDescription());
             statement.setString(4, task.getNotes());
-            statement.setBoolean(5, task.getCompleted());
+            statement.setBoolean(5, task.getIsCompleted());
             statement.setDate(6, new Date(task.getDeadline().getTime()));
             statement.setDate(7, new Date(task.getCreatedAt().getTime()));
             statement.setDate(8, new Date(task.getUpdatedAt().getTime()));
@@ -142,13 +144,13 @@ public class TaskController {
                 task.setNotes(resultSet.getString("notes"));
                 task.setCompleted(resultSet.getBoolean("completed"));
                 task.setDeadline(resultSet.getDate("deadline"));
-                task.setCreateAt(resultSet.getDate("createdAt"));
-                task.setUpdateAt(resultSet.getDate("updatedAt"));
+                task.setCreatedAt(resultSet.getDate("createdAt"));
+                task.setUpdatedAt(resultSet.getDate("updatedAt"));
                 tasks.add(task);
             }
             
         } catch (SQLException error) {
-            throw new RuntimeException("Erro ao inserir a tarefa " + error.getMessage(), error);
+            throw new RuntimeException("Erro ao buscar a tarefa " + error.getMessage(), error);
         } finally{
             ConnectionFactory.closeConnection(connection, statement, resultSet);
         }
