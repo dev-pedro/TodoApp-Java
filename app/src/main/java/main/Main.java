@@ -1,7 +1,7 @@
 /** TodoApp - Aplicativo de lista de tarefas e projetos
  * @author dev-pedro <dev.pedro.rjas@gmail.com>
  */
-package TodoApp.Java;
+package main;
 
 import controller.ProjectController;
 import controller.TaskController;
