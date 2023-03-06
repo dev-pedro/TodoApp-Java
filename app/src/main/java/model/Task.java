@@ -72,7 +72,7 @@ public class Task {
         return isCompleted;
     }
 
-    public void setCompleted(Boolean completed) {
+    public void setIsCompleted(Boolean completed) {
         this.isCompleted = completed;
     }
 
