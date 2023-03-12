@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import model.Project;
+import model.Projects;
 import util.ConnectionFactory;
 
 /**Essa classe ProjectController controla a conexão com o banco de dados
@@ -16,7 +16,7 @@ import util.ConnectionFactory;
  */
 public class ProjectController {
     
-    public void save(Project project){
+    public void save(Projects project){
         String sql = "INSERT INTO projects ("
                 + "name, "
                 + "description, "
@@ -43,7 +43,7 @@ public class ProjectController {
         }
     }
     
-    public void update(Project project){
+    public void update(Projects project){
         
         String sql = "UPDATE projects SET "
                 + "name = ?, "
@@ -100,12 +100,12 @@ public class ProjectController {
         
     }
     
-    public List<Project> getAllProject(){
+    public List<Projects> getAllProject(){
         
         String sql = "SELECT * FROM projects";
         
         //Lista de projetos que será devolvida quando a chamada do método acontecer
-        List<Project> projects = new ArrayList<>();
+        List<Projects> projects = new ArrayList<>();
         
         Connection connection = null;
         PreparedStatement statement = null;
@@ -122,7 +122,7 @@ public class ProjectController {
             resultSet = statement.executeQuery();
             
             while (resultSet.next()) {
-                Project project = new Project();
+                Projects project = new Projects();
                 project.setId(resultSet.getInt("id"));
                 project.setName(resultSet.getString("name"));
                 project.setDescription(resultSet.getString("description"));

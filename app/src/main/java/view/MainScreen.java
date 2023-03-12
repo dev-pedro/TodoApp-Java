@@ -13,7 +13,9 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.List;
 import javax.swing.DefaultListModel;
-import model.Project;
+import model.Projects;
+import model.Task;
+import util.TaskTableModel;
 
 /**
  *
@@ -24,8 +26,8 @@ public final class MainScreen extends javax.swing.JFrame {
     ProjectController projectController;
     TaskController taskController;
     
-    DefaultListModel projectModel;
-    
+    DefaultListModel projectsModel;
+    TaskTableModel taskModel;
     
     
     public MainScreen() {
@@ -34,6 +36,7 @@ public final class MainScreen extends javax.swing.JFrame {
         
         initDataControler();
         initComponentModel();
+        
         
     }
 
@@ -64,8 +67,8 @@ public final class MainScreen extends javax.swing.JFrame {
         jScrollPaneProjects = new javax.swing.JScrollPane();
         jListProjects = new javax.swing.JList<>();
         jPanel5 = new javax.swing.JPanel();
-        jTableTasks = new javax.swing.JScrollPane();
-        jTable = new javax.swing.JTable();
+        jScrollPanelTasks = new javax.swing.JScrollPane();
+        jTableTasks = new javax.swing.JTable();
 
         jPanelEmptyList.setBackground(java.awt.Color.white);
 
@@ -244,10 +247,10 @@ public final class MainScreen extends javax.swing.JFrame {
 
         jPanel5.setBackground(java.awt.Color.white);
 
-        jTableTasks.setBackground(new java.awt.Color(255, 255, 255));
+        jScrollPanelTasks.setBackground(new java.awt.Color(255, 255, 255));
 
-        jTable.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
-        jTable.setModel(new javax.swing.table.DefaultTableModel(
+        jTableTasks.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
+        jTableTasks.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -273,21 +276,22 @@ public final class MainScreen extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jTable.setGridColor(java.awt.Color.white);
-        jTable.setRowHeight(30);
-        jTable.setSelectionBackground(new java.awt.Color(204, 229, 255));
-        jTable.setShowGrid(true);
-        jTableTasks.setViewportView(jTable);
+        jTableTasks.setGridColor(java.awt.Color.white);
+        jTableTasks.setRowHeight(30);
+        jTableTasks.setSelectionBackground(new java.awt.Color(204, 229, 255));
+        jTableTasks.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jTableTasks.setShowGrid(true);
+        jScrollPanelTasks.setViewportView(jTableTasks);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTableTasks, javax.swing.GroupLayout.DEFAULT_SIZE, 586, Short.MAX_VALUE)
+            .addComponent(jScrollPanelTasks, javax.swing.GroupLayout.DEFAULT_SIZE, 586, Short.MAX_VALUE)
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTableTasks, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 489, Short.MAX_VALUE)
+            .addComponent(jScrollPanelTasks, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 489, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -316,7 +320,7 @@ public final class MainScreen extends javax.swing.JFrame {
                     .addComponent(jPanelTasks, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanelProjectsList, javax.swing.GroupLayout.DEFAULT_SIZE, 489, Short.MAX_VALUE)
+                    .addComponent(jPanelProjectsList, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
@@ -398,49 +402,58 @@ public final class MainScreen extends javax.swing.JFrame {
     private javax.swing.JPanel jPanelTasks;
     private javax.swing.JPanel jPanelTooBar;
     private javax.swing.JScrollPane jScrollPaneProjects;
+    private javax.swing.JScrollPane jScrollPanelTasks;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTable jTable;
-    private javax.swing.JScrollPane jTableTasks;
+    private javax.swing.JTable jTableTasks;
     // End of variables declaration//GEN-END:variables
 
     public void decorateTableTask(){
         
         //customizando o Header da table de tarefas
-        jTable.getTableHeader().setFont(new Font("Ubuntu", Font.BOLD, 14));
-        jTable.getTableHeader().setBackground(new Color(0,102,255));
-        jTable.getTableHeader().setForeground(new Color(255, 255, 255));
+        jTableTasks.getTableHeader().setFont(new Font("Ubuntu", Font.BOLD, 14));
+        jTableTasks.getTableHeader().setBackground(new Color(0,102,255));
+        jTableTasks.getTableHeader().setForeground(new Color(255, 255, 255));
         
         //criando um sort automatico para as colunas da table
-        boolean isCollumSorter = jTable.getAutoCreateRowSorter();
+        boolean isCollumSorter = jTableTasks.getAutoCreateRowSorter();
         if(!isCollumSorter){
-            jTable.setAutoCreateRowSorter(true);
+            jTableTasks.setAutoCreateRowSorter(true);
         }else{
-            jTable.setAutoCreateRowSorter(false);
+            jTableTasks.setAutoCreateRowSorter(false);
         }
     }
     
     public void initDataControler() {
         projectController = new ProjectController();
         taskController = new TaskController();
-        
     }
     
     public void initComponentModel() {
-        projectModel = new DefaultListModel();
+        projectsModel = new DefaultListModel();
         loadProjects();
+        
+        taskModel = new TaskTableModel();
+        jTableTasks.setModel(taskModel);
+        loadTasks(14);
+    }
+    
+    public void loadTasks(int idProject) {
+        List<Task> tasks = taskController.getAllTask(idProject);
+        taskModel.setTasks(tasks);
+        
     }
     
     public void loadProjects() {
-        List<Project> projects = projectController.getAllProject();
+        List<Projects> projects = projectController.getAllProject();
         
-        projectModel.clear();
+        projectsModel.clear();
         
         for (int i = 0; i < projects.size(); i++) {
-            Project project = projects.get(i);
-            projectModel.add(i, project);
+            Projects project = projects.get(i);
+            projectsModel.add(i, project);
         }
         
-        jListProjects.setModel(projectModel);
+        jListProjects.setModel(projectsModel);
         
     }
 }
