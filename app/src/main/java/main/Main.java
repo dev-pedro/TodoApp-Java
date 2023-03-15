@@ -6,7 +6,7 @@ package main;
 import controller.ProjectController;
 import controller.TaskController;
 import java.util.Date;
-import model.Projects;
+import model.Project;
 import model.Task;
 
 

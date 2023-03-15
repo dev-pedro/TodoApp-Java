@@ -8,7 +8,7 @@ import controller.TaskController;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JOptionPane;
-import model.Projects;
+import model.Project;
 import model.Task;
 
 /**
@@ -18,14 +18,14 @@ import model.Task;
 public class TaskDialogScreen extends javax.swing.JDialog {
 
     TaskController taskController;
-    Projects project;
+    Project project;
     
     public TaskDialogScreen(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         
         taskController = new TaskController();
-        project = new Projects();
+        project = new Project();
     }
 
     /**
@@ -207,7 +207,8 @@ public class TaskDialogScreen extends javax.swing.JDialog {
         
         try {
             Task task = new Task();
-            task.setIdProject(14);
+            task.setIdProject(project.getId());
+            
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/y");
             Date deadLine = null;
             deadLine = dateFormat.parse(jFormattedTextFieldDeadLine.getText());
@@ -291,7 +292,7 @@ public class TaskDialogScreen extends javax.swing.JDialog {
     private javax.swing.JTextField jTextFieldName;
     // End of variables declaration//GEN-END:variables
 
-    public void setProject(Projects project) {
+    public void setProject(Project project) {
         this.project = project;
     }
 }

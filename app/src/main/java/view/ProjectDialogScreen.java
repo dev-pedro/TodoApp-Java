@@ -6,7 +6,7 @@ package view;
 
 import controller.ProjectController;
 import javax.swing.JOptionPane;
-import model.Projects;
+import model.Project;
 
 /**
  *
@@ -142,7 +142,7 @@ public class ProjectDialogScreen extends javax.swing.JDialog {
     private void jLabelToolBarSaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelToolBarSaveMouseClicked
         
         try {
-            Projects project = new Projects();
+            Project project = new Project();
             project.setName(jTextFieldName.getText());
             project.setDescription(jTextAreaDescription.getText());
         
