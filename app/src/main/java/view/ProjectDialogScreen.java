@@ -6,6 +6,7 @@ package view;
 
 import controller.ProjectController;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import model.Project;
 
 /**
@@ -15,11 +16,11 @@ import model.Project;
 public class ProjectDialogScreen extends javax.swing.JDialog {
 
     ProjectController projectController;
-    
+
     public ProjectDialogScreen(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        
+
         projectController = new ProjectController();
     }
 
@@ -140,21 +141,27 @@ public class ProjectDialogScreen extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jLabelToolBarSaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelToolBarSaveMouseClicked
-        
+
         try {
-            Project project = new Project();
-            project.setName(jTextFieldName.getText());
-            project.setDescription(jTextAreaDescription.getText());
-        
-            projectController.save(project);
-        
-            JOptionPane.showMessageDialog(rootPane, "Projeto salvo com sucesso!");
-        
+            if (!jTextFieldName.getText().equals("")) {
+                Project project = new Project();
+                project.setName(jTextFieldName.getText());
+                project.setDescription(jTextAreaDescription.getText());
+                projectController.save(project);
+                JOptionPane.showMessageDialog(rootPane,
+                        "Projeto salvo com sucesso!");
+                
+                this.dispose();
+            } else {
+                JOptionPane.showMessageDialog(rootPane,
+                        "O projeto não foi salvo porque o campo nome não foi preenchido!");
+            }
+
         } catch (Exception error) {
             JOptionPane.showMessageDialog(rootPane, error.getMessage());
         }
-         this.dispose();
         
+
     }//GEN-LAST:event_jLabelToolBarSaveMouseClicked
 
     /**

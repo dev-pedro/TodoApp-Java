@@ -10,11 +10,12 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
 import java.util.List;
 import javax.swing.DefaultListModel;
 import model.Project;
 import model.Task;
+import util.ButtonColumnCellRenderer;
+import util.DeadLineColumnCellRenderer;
 import util.TaskTableModel;
 
 /**
@@ -31,10 +32,11 @@ public final class MainScreen extends javax.swing.JFrame {
 
     public MainScreen() {
         initComponents();
-        decorateTableTask();
 
         initDataControler();
         initComponentModel();
+        
+        decorateTableTask();
 
     }
 
@@ -335,6 +337,7 @@ public final class MainScreen extends javax.swing.JFrame {
 
         projectDialogScreen.addWindowListener(new WindowAdapter() {
 
+            @Override
             public void windowClosed(WindowEvent event) {
                 loadProjects();
             }
@@ -354,6 +357,7 @@ public final class MainScreen extends javax.swing.JFrame {
 
         taskDialogScreen.addWindowListener(new WindowAdapter() {
 
+            @Override
             public void windowClosed(WindowEvent event) {
                 int projectIndex = jListProjects.getSelectedIndex();
                 Project project = (Project) projectsModel.get(projectIndex);
@@ -430,6 +434,7 @@ public final class MainScreen extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new MainScreen().setVisible(true);
             }
@@ -465,6 +470,15 @@ public final class MainScreen extends javax.swing.JFrame {
         jTableTasks.getTableHeader().setFont(new Font("Ubuntu", Font.BOLD, 14));
         jTableTasks.getTableHeader().setBackground(new Color(0, 102, 255));
         jTableTasks.getTableHeader().setForeground(new Color(255, 255, 255));
+        
+        //decora a celula deadline da tarefa com background colorido
+        jTableTasks.getColumnModel().getColumn(2)
+                .setCellRenderer(new DeadLineColumnCellRenderer());
+        
+        jTableTasks.getColumnModel().getColumn(4).setCellRenderer(new ButtonColumnCellRenderer("edit"));
+        
+        jTableTasks.getColumnModel().getColumn(5).setCellRenderer(new ButtonColumnCellRenderer("delete"));
+        
 
         //criando um sort automatico para as colunas da table
         boolean isCollumSorter = jTableTasks.getAutoCreateRowSorter();
