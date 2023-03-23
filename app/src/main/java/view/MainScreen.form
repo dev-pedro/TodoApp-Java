@@ -382,6 +382,11 @@
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="ff" id="white" palette="1" red="ff" type="palette"/>
         </Property>
+        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+          <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
+            <EtchetBorder/>
+          </Border>
+        </Property>
       </Properties>
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
@@ -403,7 +408,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jLabelEmptyListTitle" max="32767" attributes="0"/>
                   <Component id="jLabelEmptyListIcon" alignment="0" max="32767" attributes="0"/>
-                  <Component id="jLabelEmptyListSubTitle" alignment="0" pref="668" max="32767" attributes="0"/>
+                  <Component id="jLabelEmptyListSubTitle" alignment="0" pref="664" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
